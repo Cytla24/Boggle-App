@@ -11,7 +11,8 @@ import { v4 as uuidv4 } from 'uuid';
 import {findAllSolutions} from "./boggle_solver";
 import {RandomGrid} from "./random_grid";
 import data from "./data.json";
-import Axios from 'axios';
+import TextLoop from "react-text-loop";
+import ShowAll from './components/ShowAll';
 
 
 class App extends React.Component {
@@ -28,32 +29,26 @@ class App extends React.Component {
 
     this.state = {
       grid : newGrid,
+      solArr: found,
       sol: allWords,
       wordsFound : [
-        {
-          id: uuidv4(),
-          title: "hi"
-        },
-        {
-          id: uuidv4(),
-          title: "word2"
-        },
-        {
-          id: uuidv4(),
-          title: "word3"
-        }
       ],
-      shouldHide: true
+      shouldHide: true,
+      isDone:false,
     };
 
   }
 
   startGame = (e) => {
+    if (!this.state.shouldHide){
+      window.location.reload(false);
+    }
     this.setState( {shouldHide : false});
   }
 
   endGame = (e) => {
-    this.setState( {shouldHide : true});
+    // this.setState( {shouldHide : true});
+    this.setState( {isDone : true});
   }
 
   addWord = (title) => {
@@ -73,6 +68,10 @@ class App extends React.Component {
       }
       if (Number(check) === 0){
         this.setState( {wordsFound : [...this.state.wordsFound, newWord] });
+        var array = [...this.state.solArr];
+        var index = array.indexOf(title);
+        array.splice(index, 1);
+        this.setState( { solArr : array})
       }else{
         alert("You already entered this word!");
       }
@@ -85,20 +84,36 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header />
-        <>
-          <Button variant="primary" onClick={this.startGame}>Start!</Button>{' '}
-          <Button variant="danger" onClick={this.endGame}>Stop!</Button>
-        </>
-        <header className="App-header">
-          <div className={this.state.shouldHide ? 'hidden' : ''}>
-            <Game grids={this.state.grid}/>
+        <div className="grid-st">
+          <h1 className="animation">
+            Boggle {' '}
+            <TextLoop>
+              <span>Solver</span>
+              <span>Genius</span>
+              <span>Algorithms</span>
+            </TextLoop>{" "}
+          </h1>
+          <>
+            <Button variant="primary" onClick={this.startGame}>Start!</Button>{' '}
+            <Button variant="danger" onClick={this.endGame}>Stop!</Button>
+          </>
+            <div className={this.state.shouldHide ? 'hidden' : ''}>
+              <Game grids={this.state.grid}/>
+            </div>
+        </div> 
+        <div>
+              <h1 className="announce" style={{paddingTop:"20px"}}>
+                Slowly Making Boggle Easy!
+              </h1>
+            </div>     
+        <div>
+          <AddWord addWord={this.addWord}/>
+          <h4 className="announce">Words Found...</h4>
+          <Words words={this.state.wordsFound}/>
+          <div className={this.state.isDone ? '' : 'hidden'}>
+            <ShowAll rWords={this.state.solArr} />
           </div>
-          <div>
-            <AddWord addWord={this.addWord}/>
-            <h4>Words Found</h4>
-            <Words words={this.state.wordsFound}/>
-          </div>
-        </header>
+        </div>
 
       </div>
     );

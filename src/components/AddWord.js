@@ -20,7 +20,7 @@ export class AddWord extends Component {
                 <input 
                 type="text" 
                 name="title" 
-                style={{ flex: '10', padding: '5px' }}
+                style={{ width: '50%', flex: '10', padding: '5px' }}
                 placeholder="Type word..." 
                 value={this.state.title}
                 onChange={this.onChange}
