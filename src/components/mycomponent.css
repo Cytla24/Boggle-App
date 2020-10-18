@@ -1,0 +1,12 @@
+.cell-control {
+    border: 1px solid #fdd;
+    width: 50px;
+    height: 50px;
+    background-color: #35aaff;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  
+.cell-control:hover {
+border: 3px solid #fdd;
+}

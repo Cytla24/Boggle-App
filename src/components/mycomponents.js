@@ -1,10 +1,19 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
+import './mycomponent.css';
 
 class Square extends React.Component {
+
+  buttStyle = {
+
+  }
+
   render() {
     return (
-      <button className="square">
+      // <Button variant="info">Info</Button>
+      <button className="cell-control">
         {this.props.value}
+        {"  "}
       </button>
     );
   }
@@ -19,19 +28,39 @@ class Board extends React.Component {
     return (
       <div>
         <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
+          {this.renderSquare(this.props.rows[0][0])}
+          {this.renderSquare(this.props.rows[0][1])}
+          {this.renderSquare(this.props.rows[0][2])}
+          {this.renderSquare(this.props.rows[0][3])}
+          {this.renderSquare(this.props.rows[0][4])}
         </div>
         <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
+          {this.renderSquare(this.props.rows[1][0])}
+          {this.renderSquare(this.props.rows[1][1])}
+          {this.renderSquare(this.props.rows[1][2])}
+          {this.renderSquare(this.props.rows[1][3])}
+          {this.renderSquare(this.props.rows[1][4])}
         </div>
         <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
+          {this.renderSquare(this.props.rows[2][0])}
+          {this.renderSquare(this.props.rows[2][1])}
+          {this.renderSquare(this.props.rows[2][2])}
+          {this.renderSquare(this.props.rows[2][3])}
+          {this.renderSquare(this.props.rows[2][4])}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(this.props.rows[3][0])}
+          {this.renderSquare(this.props.rows[3][1])}
+          {this.renderSquare(this.props.rows[3][2])}
+          {this.renderSquare(this.props.rows[3][3])}
+          {this.renderSquare(this.props.rows[3][4])}
+        </div>
+        <div className="board-row">
+          {this.renderSquare(this.props.rows[4][0])}
+          {this.renderSquare(this.props.rows[4][1])}
+          {this.renderSquare(this.props.rows[4][2])}
+          {this.renderSquare(this.props.rows[4][3])}
+          {this.renderSquare(this.props.rows[4][4])}
         </div>
       </div>
     );
@@ -45,7 +74,6 @@ class Game extends React.Component {
       history: [{
         squares: Array(9).fill(null)
       }],
-      xIsNext: true
     };
   }
 
@@ -81,13 +109,9 @@ class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board
-            squares={current.squares}
+            rows={this.props.grids}
             onClick={(i) => this.handleClick(i)}
-          />
-        </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+            />
         </div>
       </div>
     );
