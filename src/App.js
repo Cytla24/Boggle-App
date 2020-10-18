@@ -35,6 +35,7 @@ class App extends React.Component {
       ],
       shouldHide: true,
       isDone:false,
+      score:0
     };
 
   }
@@ -68,10 +69,14 @@ class App extends React.Component {
       }
       if (Number(check) === 0){
         this.setState( {wordsFound : [...this.state.wordsFound, newWord] });
+        var temp_score = this.state.score;
+        temp_score += Number(title.length);
+        this.setState( {score:temp_score} );
         var array = [...this.state.solArr];
         var index = array.indexOf(title);
         array.splice(index, 1);
         this.setState( { solArr : array})
+
       }else{
         alert("You already entered this word!");
       }
@@ -108,6 +113,8 @@ class App extends React.Component {
             </div>     
         <div>
           <AddWord addWord={this.addWord}/>
+          <h4 className="announce">CurrentScore...</h4>
+          <h4 className="announce">{this.state.score} </h4>
           <h4 className="announce">Words Found...</h4>
           <Words words={this.state.wordsFound}/>
           <div className={this.state.isDone ? '' : 'hidden'}>
