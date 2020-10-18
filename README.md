@@ -1,3 +1,8 @@
+Simple Boggle react application.
+After cloning the repo, follow the instructions below to run your local server.
+The game refreshes a new grid upon every other click of the start button. The stop button provides all words you 
+don't discover. Have fun!
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
