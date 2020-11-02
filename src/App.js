@@ -77,7 +77,8 @@ class App extends React.Component {
       isLoaded:false,
       currGrid: '',
       firstClick:0,
-      shouldLoad:false
+      shouldLoad:false,
+      removeBar:false
     };
 
   }
@@ -96,7 +97,7 @@ class App extends React.Component {
     var sgrid3 = firestore.collection("grids").doc("TEC0xceJcfI4S9E1C3vv");
 
     // console.log(this.state.score, this.state.highScores[this.state.currGrid]);
-    if (this.state.score > this.state.highScores[this.state.currGrid][0]){
+    if (firebase.auth().currentUser && this.state.score > this.state.highScores[this.state.currGrid][0]){
       // console.log("HI HERE!");
       if (this.state.currGrid === "grid1"){
         sgrid1.update({
@@ -118,6 +119,7 @@ class App extends React.Component {
       this.setState( {shouldLoad : true});
     }
     this.setState( {isDone : true});
+    this.setState({removeBar:true});
   }
 
   addWord = (title) => {
@@ -175,6 +177,7 @@ class App extends React.Component {
   }
 
   loadPuzzles = () => {
+    this.setState({removeBar:false});
     if (this.state.firstClick == 0 || this.state.shouldLoad){
       firestore.collection("grids").get()
       .then(querySnapshot => {
@@ -280,7 +283,8 @@ class App extends React.Component {
               Welcome {this.getUserName()}
             </h1>
           </div>
-          <Button variant="outline-secondary" onClick={this.loadPuzzles}>Load Puzzles!</Button>
+          <Button variant="outline-secondary" onClick={this.loadPuzzles}>Load Puzzles!</Button>{' '}
+          <Button variant="outline-danger" onClick={this.signOut}>Sign Out</Button>
         </div>
         <div className={this.state.isLoaded ? '' : 'hidden'}>
           <div className="grid-st">
@@ -318,7 +322,9 @@ class App extends React.Component {
                 </h1>
           </div>     
           <div className={this.state.shouldHide || this.state.currGrid === '' ? 'hidden' : ''}>
-            <AddWord addWord={this.addWord}/>
+            <div className={this.state.removeBar ? 'hidden' : ''} >
+              <AddWord addWord={this.addWord}/>
+            </div>
             <h4 className="announce">CurrentScore...</h4>
             <h4 className="announce">{this.state.score} </h4>
             <h4 className="announce">Words Found...</h4>
