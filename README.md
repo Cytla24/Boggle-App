@@ -1,3 +1,8 @@
+## THE WEBSITE IS LIVE!! CLICK THE LINK
+https://boggle-solveur.web.app
+
+### The code for the live version of the website is located in "firebase" branch!
+
 Simple Boggle react application.
 After cloning the repo, follow the instructions below to run your local server.
 The game refreshes a new grid upon every other click of the start button. The stop button provides all words you 
