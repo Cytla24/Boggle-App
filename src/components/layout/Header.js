@@ -9,7 +9,7 @@ function Header() {
             </header>  */}
                 
                 <Navbar style={{backgroundColor: "#ff91a4"}} expand="lg">
-                    <Navbar.Brand href="#home" style={{color: "#fff", fontWeight: "100", fontSize: "1.5em"}}>BoggleSolver</Navbar.Brand>
+                    <Navbar.Brand href="." style={{color: "#fff", fontWeight: "100", fontSize: "1.5em"}}>BoggleSolver</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">

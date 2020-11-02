@@ -10,6 +10,12 @@
 
 // var json = require("./full-wordlist.json");
 
+var final = [];
+var temp = [];
+var visited = {};
+var stack = [];
+var megaFound = false;
+
 function findAllSolutions (grid, dictionary) {
   let solutions = []
 
@@ -20,8 +26,8 @@ function findAllSolutions (grid, dictionary) {
   /* global megaFound:writable final:writable temp:writable visited:writable stack:writable */
   // checks through dictionary for valid wordsm and passes them into the find function to get the coordinate of the first letter
   for (var i of dictionary) {
-    final = []
-    temp = []
+    final = [];
+    temp = [];
     if (i.length < 3) {
       continue
     }
@@ -56,12 +62,15 @@ function help (grid, xval, yval, word, rword) {
   if (rword === '' && !(megaFound)) {
     final.push(word)
     megaFound = true
+    // console.log("added");
     return
   }
   //  returns if a solution has been found - prevents duplicates returns
+  // console.log(megaFound, word);
   if (megaFound) {
     return
   }
+  // console.log("didnt return ho");
   var first = rword[0].toUpperCase()
   if (first.toUpperCase() === 'Q') {
     if (rword[1] && rword[1].toUpperCase() === 'U') {
@@ -160,7 +169,19 @@ function find (grid, dictionary, word, letter, k) {
 //   ['O', 'N', 'T', 'A', 'R']]
 // const dictionary = json.words
 
+const grid = [['T', 'W', 'Y', 'R', 'R'],
+  ['R', 'N', 'P', 'H', 'R'],
+  ['G', 'Z', 'Qu', 'R', 'R'],
+  ['O', 'N', 'T', 'A', 'R'],
+  ['T', 'z', 'Y', 'R', 'R'],
+  ['R', 'N', 'P', 'H', 'R'],
+  ['G', 'Z', 'Qu', 'R', 'R'],
+  ['O', 'N', 'T', 'A', 'R']]
 
-// console.log(exports.findAllSolutions(grid, dictionary));
+const dictionary = ['rar', 'ngo', 'rat', 'prat'];
+// console.log(findAllSolutions(grid, dictionary));
+// console.log(temp);
 
-exports.findAllSolutions = findAllSolutions;
+const _findAllSolutions = findAllSolutions
+export { _findAllSolutions as findAllSolutions }
+// export default findAllSolutions;
